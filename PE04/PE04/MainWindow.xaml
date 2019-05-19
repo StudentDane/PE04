@@ -5,38 +5,56 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PE04"
         mc:Ignorable="d"
-        Title="Karakter Aanmaken" Height="600" Width="600" Loaded="Window_Loaded">
+        Title="Karakter Aanmaken" Height="605" Width="605" Loaded="Window_Loaded">
     <Grid>
-        <Button x:Name="btnAanmaken" Content="Karakter Aanmaken" HorizontalAlignment="Left" Margin="220,495,0,0" VerticalAlignment="Top" Width="150" Height="28"/>
-        <TextBox x:Name="txtVoornaam" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125" Margin="86,21,0,0"/>
-        <TextBox x:Name="txtAchterNaam" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125" Margin="86,55,0,0"/>
-        <Label x:Name="lblVoornaam" Content="Voornaam:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,21,0,0" Height="29" Width="76"/>
-        <Label x:Name="lblAchterNaam" Content="Achternaam:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,55,0,0" Height="29" Width="76"/>
-        <Label x:Name="lblGeslacht" Content="Geslacht:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,89,0,0" Height="23" Width="66"/>
-        <ComboBox x:Name="cmbGeslacht" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="86,89,0,0" SelectionChanged="CmbGeslacht_SelectionChanged" Height="23"/>
-        <Image x:Name="imgAvatar" HorizontalAlignment="Left" Height="275" Margin="392,212,0,0" VerticalAlignment="Top" Width="190"/>
-        <Label x:Name="lblRas" Content="Ras:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,117,0,0" Height="23" Width="66"/>
-        <ComboBox x:Name="cmbRas" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="86,117,0,0" Height="23" SelectionChanged="CmbRas_SelectionChanged">
-        </ComboBox>
-        <Label x:Name="lblVerhaal" Content="Achtergrondsverhaal:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,177,0,0" Height="30" Width="190"/>
-        <TextBox x:Name="txtVoorbeeld" HorizontalAlignment="Left" Height="275" Foreground="Gray" TextWrapping="Wrap" Text="Ooit was er een kleine man genaamd Tom Sabbe, hij had niet veel maar geloofde altijd dat hij een held ging worden..." VerticalAlignment="Top" Width="190" Margin="10,212,0,0"/>
-        <TextBox x:Name="txtVerhaal" HorizontalAlignment="Left" Height="275" Background="Transparent" TextWrapping="Wrap" Text="" TextChanged="TxtVerhaal_TextChanged" VerticalAlignment="Top" Width="190" Margin="10,212,0,0"/>
+        <Grid x:Name="grdBasisGegevens" HorizontalAlignment="Left" Height="240" VerticalAlignment="Top" Width="255" Margin="10,0,0,0" Background="#FFD9FFBF">
+            <TextBox x:Name="txtVoornaam" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125" Margin="86,21,0,0"/>
+            <TextBox x:Name="txtAchterNaam" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="125" Margin="86,55,0,0"/>
+            <Label x:Name="lblVoornaam" Content="Voornaam:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,21,0,0" Height="29" Width="76"/>
+            <Label x:Name="lblAchterNaam" Content="Achternaam:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,55,0,0" Height="29" Width="76"/>
+            <Label x:Name="lblGeslacht" Content="Geslacht:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,89,0,0" Height="23" Width="66"/>
+            <ComboBox x:Name="cmbGeslacht" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="86,89,0,0" SelectionChanged="CmbGeslacht_SelectionChanged" Height="23"/>
+            <Label x:Name="lblRas" Content="Ras:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,117,0,0" Height="23" Width="66"/>
+            <ComboBox x:Name="cmbRas" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="86,117,0,0" Height="23" SelectionChanged="CmbRas_SelectionChanged"/>
+            <Button x:Name="btnBevestigKarakter" Content="Bevestig" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="86,176,0,0" Click="BtnBevestigKarakter_Click"/>
+            <Button x:Name="btnOpnieuw" Content="Opnieuw" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="86,151,0,0" Click="BtnOpnieuw_Click"/>
+        </Grid>
 
-        <Grid x:Name="grdAttributen" HorizontalAlignment="Left" Height="175" VerticalAlignment="Top" Width="322" Margin="270,10,0,0">
+        <Grid x:Name="grdAttributen" HorizontalAlignment="Left" Height="240" VerticalAlignment="Top" Width="322" Margin="270,0,0,0" Background="#FFD9FFBF">
             <Label x:Name="lblAttributen" Content="Attributen:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,11,0,0" Height="29" Width="66"/>
             <Label x:Name="lblBeschikbarePunten" Content="20 beschikbare punten!" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="111,11,0,0" Height="29" Width="190"/>
             <Label x:Name="lblLevenspunten" Content="Levenspunten:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,45,0,0" Height="29" Width="95"/>
-            <TextBox x:Name="txtLevensPunten" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Margin="118,45,0,0"/>
+            <TextBox x:Name="txtLevensPunten" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="118,45,0,0" LostFocus="TxtLevensPunten_LostFocus"/>
             <Label x:Name="lblKracht" Content="Kracht:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,77,0,0" Height="29" Width="95"/>
-            <TextBox x:Name="txtKracht" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Margin="118,77,0,0"/>
+            <TextBox x:Name="txtKracht" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="118,77,0,0" LostFocus="TxtKracht_LostFocus"/>
             <Label x:Name="lblIntelligentie" Content="Intelligentie:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,106,0,0" Height="29" Width="95"/>
-            <TextBox x:Name="txtIntelligentie" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Margin="118,106,0,0"/>
+            <TextBox x:Name="txtIntelligentie" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="118,106,0,0" LostFocus="TxtIntelligentie_LostFocus"/>
             <Label x:Name="lblSnelheid" Content="Snelheid:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,135,0,0" Height="29" Width="95"/>
-            <TextBox x:Name="txtSnelheid" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="120" Margin="118,135,0,0"/>
+            <TextBox x:Name="txtSnelheid" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="118,135,0,0" LostFocus="TxtSnelheid_LostFocus"/>
             <TextBox x:Name="txtBonusLevensPunten" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="27" Margin="254,45,0,0" IsReadOnly="True"/>
             <TextBox x:Name="txtBonusKracht" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="27" Margin="254,77,0,0" IsReadOnly="True"/>
             <TextBox x:Name="txtBonusIntelligentie" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="27" Margin="254,106,0,0" IsReadOnly="True"/>
             <TextBox x:Name="txtBonusSnelheid" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="27" Margin="254,135,0,0" IsReadOnly="True"/>
+            <TextBox x:Name="txtFeedback" TextWrapping="Wrap" Text="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,204,0,0" Width="302" Height="26" IsReadOnly="True"/>
+            <Button x:Name="btnBevestig" Content="Bevestig" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="118,179,0,0" Click="BtnBevestig_Click"/>
+            <Button x:Name="btnRandom" Content="Random" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" Margin="254,179,0,0"/>
         </Grid>
+        <Grid x:Name="grdAchtergrond" HorizontalAlignment="Left" Height="324" VerticalAlignment="Top" Width="372" Margin="220,245,0,0" Background="#FFD9FFBF">
+            <Button x:Name="btnAanmaken" Content="Karakter Aanmaken" HorizontalAlignment="Left" Margin="10,286,0,0" VerticalAlignment="Top" Width="150" Height="28"/>
+            <Label x:Name="lblVerhaal" Content="Achtergrondsverhaal:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="172,10,0,0" Height="30" Width="190"/>
+            <TextBox x:Name="txtVoorbeeld" HorizontalAlignment="Left" Height="269" Foreground="Gray" TextWrapping="Wrap" Text="Ooit was er een kleine man genaamd Tom, hij had niet veel ervaring met grote zwaarden maar geloofde altijd dat hij een held ging worden..." VerticalAlignment="Top" Width="190" Margin="172,45,0,0"/>
+            <TextBox x:Name="txtVerhaal" HorizontalAlignment="Left" Height="269" Background="Transparent" TextWrapping="Wrap" Text="" TextChanged="TxtVerhaal_TextChanged" VerticalAlignment="Top" Width="190" Margin="172,45,0,0"/>
+            <Label x:Name="lblErvaring" Content="Ervaren avonturier?" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="118" RenderTransformOrigin="1.636,3.038"/>
+            <Label x:Name="lblMisdaad" Content="Crimineel?" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Width="118" RenderTransformOrigin="1.636,3.038"/>
+            <Label x:Name="lblVerliefd" Content="Verliefd?" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="118" RenderTransformOrigin="1.636,3.038"/>
+            <Label x:Name="lblStatus" Content="Hoge status?" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="118" RenderTransformOrigin="1.636,3.038"/>
+            <Label x:Name="lblFamilie" Content="Familie?" HorizontalAlignment="Left" Margin="10,151,0,0" VerticalAlignment="Top" Width="118" RenderTransformOrigin="1.636,3.038"/>
+            <RadioButton x:Name="rdbErvaring" HorizontalAlignment="Left" Margin="128,48,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,-0.643"/>
+            <RadioButton x:Name="rdbMisdaad" HorizontalAlignment="Left" Margin="128,75,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,-0.857"/>
+            <RadioButton x:Name="rdbVerliefd" HorizontalAlignment="Left" Margin="128,101,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,-0.857"/>
+            <RadioButton x:Name="rdbStatus" HorizontalAlignment="Left" Margin="128,128,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,-0.857"/>
+            <RadioButton x:Name="rdbFamilie" HorizontalAlignment="Left" Margin="128,155,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,-0.857"/>
+        </Grid>
+        <Image x:Name="imgAvatar" HorizontalAlignment="Left" Height="314" Margin="10,245,0,0" VerticalAlignment="Top" Width="200"/>
     </Grid>
 </Window>

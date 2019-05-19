@@ -21,7 +21,7 @@ namespace PE04
     public partial class MainWindow : Window
     {
         int totaalTeBestedenPunten = 20;
-        int levenspunten, kracht, intelligentie, snelheid;
+        /*int levenspunten, kracht, intelligentie, snelheid;*/
         int bonusLevenspunten, bonusKracht, bonusIntelligentie, bonusSnelheid;
 
 
@@ -37,14 +37,37 @@ namespace PE04
             cmbGeslacht.Items.Add("Vrouw");
 
 
-            foreach(string ras in Enum.GetNames(typeof(Rassen)))
+            foreach (string ras in Enum.GetNames(typeof(Rassen)))
             {
                 cmbRas.Items.Add(ras);
             }
-        }
-        void AttributenToevoegen(string geselecteerdAttribuut)
-        {
+            txtVoornaam.Focus();
+            grdAttributen.Visibility = Visibility.Hidden;
+            grdAchtergrond.Visibility = Visibility.Hidden;
+            btnBevestig.IsEnabled = false;
+            btnBevestigKarakter.IsEnabled = false;
 
+        }
+        #region Attributen
+        void AttributenToevoegen(TextBox ingevuldAttribuut)
+        {
+            int besteeddePunten;
+            besteeddePunten = Convert.ToInt16(ingevuldAttribuut.Text);
+            if (totaalTeBestedenPunten - besteeddePunten >= 0)
+            {
+                totaalTeBestedenPunten -= besteeddePunten;
+                lblBeschikbarePunten.Content = totaalTeBestedenPunten + " beschikbare punten!";
+                txtFeedback.Text = "Je hebt nog beschikbare punten om te besteden";
+            }
+            else if (totaalTeBestedenPunten == 0)
+            {
+                btnBevestig.IsEnabled = true;
+            }
+            else
+            {
+                txtFeedback.Text = "Je hebt niet genoeg punten om te besteden";
+                btnBevestig.IsEnabled = false;
+            }
         }
 
         void BonusAttributen(Rassen gekozenRas)
@@ -53,16 +76,20 @@ namespace PE04
 
             switch (gekozenRas)
             {
-                case Rassen.Mens: bonusSnelheid++;
+                case Rassen.Mens:
+                    bonusSnelheid++;
                     break;
-                case Rassen.Elf: bonusIntelligentie++;
+                case Rassen.Elf:
+                    bonusIntelligentie++;
                     break;
-                case Rassen.Dwerg: bonusLevenspunten++;
+                case Rassen.Dwerg:
+                    bonusLevenspunten++;
                     break;
-                case Rassen.Ork: bonusKracht++;
+                case Rassen.Ork:
+                    bonusKracht++;
                     break;
             }
-            if((string) cmbGeslacht.SelectedValue == "Man")
+            if ((string)cmbGeslacht.SelectedValue == "Man")
             {
                 bonusKracht++;
             }
@@ -75,15 +102,51 @@ namespace PE04
             txtBonusIntelligentie.Text = "+ " + bonusIntelligentie;
             txtBonusSnelheid.Text = "+ " + bonusSnelheid;
         }
+        #endregion
 
         #region Events
+        //Functionaliteit
+        private void TxtLevensPunten_LostFocus(object sender, RoutedEventArgs e)
+        {
+            AttributenToevoegen(txtLevensPunten);
+        }
+
+        private void TxtKracht_LostFocus(object sender, RoutedEventArgs e)
+        {
+            AttributenToevoegen(txtKracht);
+        }
+
+
+        private void TxtSnelheid_LostFocus(object sender, RoutedEventArgs e)
+        {
+            AttributenToevoegen(txtSnelheid);
+        }
+
+        private void TxtIntelligentie_LostFocus(object sender, RoutedEventArgs e)
+        {
+            AttributenToevoegen(txtIntelligentie);
+        }
+
+        //UI & Gebruiksvriendelijkheid
+        private void BtnBevestig_Click(object sender, RoutedEventArgs e)
+        {
+            grdAchtergrond.Visibility = Visibility.Visible;
+        }
+        private void BtnBevestigKarakter_Click(object sender, RoutedEventArgs e)
+        {
+            grdAttributen.Visibility = Visibility.Visible;
+        }
+
+        private void BtnOpnieuw_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
 
         private void CmbGeslacht_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             bool gekozenGeslacht;
 
             gekozenGeslacht = Convert.ToBoolean(cmbGeslacht.SelectedIndex);
-            cmbRas.IsEnabled = true;
             cmbGeslacht.IsEnabled = false;
         }
 
@@ -93,7 +156,8 @@ namespace PE04
             BonusAttributen(gekozenRas);
             //Als Ras en Geslacht beide gekozen zijn kan een afbeelding van dat ras en geslacht getoont worden bv mannelijke ork
             cmbRas.IsEnabled = false;
-            grdAttributen.IsEnabled = true;
+            btnBevestigKarakter.IsEnabled = true;
+            btnBevestigKarakter.Focus();
         }
 
         private void TxtVerhaal_TextChanged(object sender, TextChangedEventArgs e)
@@ -107,3 +171,4 @@ namespace PE04
         #endregion
     }
 }
+
