@@ -23,6 +23,7 @@ namespace PE04
         int totaalTeBestedenPunten = 20;
         /*int levenspunten, kracht, intelligentie, snelheid;*/
         int bonusLevenspunten, bonusKracht, bonusIntelligentie, bonusSnelheid;
+        bool negeerEvent;
 
 
         public MainWindow()
@@ -45,28 +46,29 @@ namespace PE04
             grdAttributen.Visibility = Visibility.Hidden;
             grdAchtergrond.Visibility = Visibility.Hidden;
             btnBevestig.IsEnabled = false;
-            btnBevestigKarakter.IsEnabled = false;
 
         }
         #region Attributen
         void AttributenToevoegen(TextBox ingevuldAttribuut)
         {
-            int besteeddePunten;
-            besteeddePunten = Convert.ToInt16(ingevuldAttribuut.Text);
-            if (totaalTeBestedenPunten - besteeddePunten >= 0)
+            //Aanpassingen achteraf zijn niet mogelijk, eventueel terug naar TextChanged ipv LostFocus en besteeddePunten terug bij totaal tellen
+            //Of een klasse,Enum maken voor de attributen en meteen de waarden opslaan en bij aanpassing de vorige waarde terug bij totaal tellen
+            if (!negeerEvent)
             {
-                totaalTeBestedenPunten -= besteeddePunten;
-                lblBeschikbarePunten.Content = totaalTeBestedenPunten + " beschikbare punten!";
-                txtFeedback.Text = "Je hebt nog beschikbare punten om te besteden";
-            }
-            else if (totaalTeBestedenPunten == 0)
-            {
-                btnBevestig.IsEnabled = true;
-            }
-            else
-            {
-                txtFeedback.Text = "Je hebt niet genoeg punten om te besteden";
-                btnBevestig.IsEnabled = false;
+                int besteeddePunten;
+                besteeddePunten = Convert.ToInt16(ingevuldAttribuut.Text);
+                if (totaalTeBestedenPunten - besteeddePunten >= 0)
+                {
+                    totaalTeBestedenPunten -= besteeddePunten;
+                    ingevuldAttribuut.IsEnabled = false;
+                    lblBeschikbarePunten.Content = totaalTeBestedenPunten + " beschikbare punten!";
+                    txtFeedback.Text = "Je hebt nog beschikbare punten om te besteden";
+                }
+                else
+                {
+                    txtFeedback.Text = "Je hebt niet genoeg punten om te besteden";
+                    btnBevestigAttributen.IsEnabled = false;
+                }
             }
         }
 
@@ -106,40 +108,81 @@ namespace PE04
 
         #region Events
         //Functionaliteit
-        private void TxtLevensPunten_LostFocus(object sender, RoutedEventArgs e)
+        private void TxtLevensPunten_TextChanged(object sender, RoutedEventArgs e)
         {
             AttributenToevoegen(txtLevensPunten);
         }
 
-        private void TxtKracht_LostFocus(object sender, RoutedEventArgs e)
+        private void TxtKracht_TextChanged(object sender, RoutedEventArgs e)
         {
             AttributenToevoegen(txtKracht);
         }
 
 
-        private void TxtSnelheid_LostFocus(object sender, RoutedEventArgs e)
+        private void TxtSnelheid_TextChanged(object sender, RoutedEventArgs e)
         {
             AttributenToevoegen(txtSnelheid);
         }
 
-        private void TxtIntelligentie_LostFocus(object sender, RoutedEventArgs e)
+        private void TxtIntelligentie_TextChanged(object sender, RoutedEventArgs e)
         {
             AttributenToevoegen(txtIntelligentie);
         }
 
         //UI & Gebruiksvriendelijkheid
+        //EnabledSchakelaar met bool en optionele parameter om een object over te slaan?
+        //Foreach die alle !IsReadOnly textboxen cleared en alle objecten in het grid disabled
+        //Of die alles terug enabled
+        private void BtnBevestigAttributen_Click(object sender, RoutedEventArgs e)
+        {
+            if (totaalTeBestedenPunten == 0)
+            {
+                txtFeedback.Text = "Je hebt alle punten besteed";
+                btnOpnieuwAttributen.IsEnabled = false;
+                btnBevestigAttributen.IsEnabled = false;
+                txtVerhaal.Focus();
+                grdAchtergrond.Visibility = Visibility.Visible;
+            }
+            else if (totaalTeBestedenPunten > 0)
+            {
+                txtFeedback.Text = "Je had nog " + totaalTeBestedenPunten + " punten om te besteden, probeer opnieuw";
+                btnOpnieuwAttributen.Focus();
+            }
+        }
         private void BtnBevestig_Click(object sender, RoutedEventArgs e)
         {
-            grdAchtergrond.Visibility = Visibility.Visible;
-        }
-        private void BtnBevestigKarakter_Click(object sender, RoutedEventArgs e)
-        {
+            txtVoornaam.IsEnabled = false;
+            txtAchterNaam.IsEnabled = false;
+            btnOpnieuw.IsEnabled = false;
+            btnStandaard.IsEnabled = false;
+            btnBevestig.IsEnabled = false;
             grdAttributen.Visibility = Visibility.Visible;
         }
 
         private void BtnOpnieuw_Click(object sender, RoutedEventArgs e)
         {
+            txtVoornaam.Clear();
+            txtAchterNaam.Clear();
+            cmbRas.IsEnabled = true;
+            cmbGeslacht.IsEnabled = true;
+            btnBevestig.IsEnabled = false;
+        }
 
+        private void BtnOpnieuwAttributen_Click(object sender, RoutedEventArgs e)
+        {
+            negeerEvent = true;
+            txtLevensPunten.Clear();
+            txtKracht.Clear();
+            txtIntelligentie.Clear();
+            txtSnelheid.Clear();
+            totaalTeBestedenPunten = 20;
+            txtFeedback.Clear();
+            lblBeschikbarePunten.Content = totaalTeBestedenPunten + " beschikbare punten!";
+            txtLevensPunten.IsEnabled = true;
+            txtKracht.IsEnabled = true;
+            txtIntelligentie.IsEnabled = true;
+            txtSnelheid.IsEnabled = true;
+            negeerEvent = false;
         }
 
         private void CmbGeslacht_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -156,8 +199,8 @@ namespace PE04
             BonusAttributen(gekozenRas);
             //Als Ras en Geslacht beide gekozen zijn kan een afbeelding van dat ras en geslacht getoont worden bv mannelijke ork
             cmbRas.IsEnabled = false;
-            btnBevestigKarakter.IsEnabled = true;
-            btnBevestigKarakter.Focus();
+            btnBevestig.IsEnabled = true;
+            btnBevestig.Focus();
         }
 
         private void TxtVerhaal_TextChanged(object sender, TextChangedEventArgs e)

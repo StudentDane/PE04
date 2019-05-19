@@ -16,28 +16,30 @@
             <ComboBox x:Name="cmbGeslacht" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="86,89,0,0" SelectionChanged="CmbGeslacht_SelectionChanged" Height="23"/>
             <Label x:Name="lblRas" Content="Ras:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,117,0,0" Height="23" Width="66"/>
             <ComboBox x:Name="cmbRas" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="86,117,0,0" Height="23" SelectionChanged="CmbRas_SelectionChanged"/>
-            <Button x:Name="btnBevestigKarakter" Content="Bevestig" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="86,176,0,0" Click="BtnBevestigKarakter_Click"/>
-            <Button x:Name="btnOpnieuw" Content="Opnieuw" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="86,151,0,0" Click="BtnOpnieuw_Click"/>
+            <Button x:Name="btnBevestig" Content="Bevestig" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Margin="86,176,0,0" Click="BtnBevestig_Click" Height="45"/>
+            <Button x:Name="btnOpnieuw" Content="Opnieuw" HorizontalAlignment="Left" VerticalAlignment="Top" Width="71" Margin="10,176,0,0" Click="BtnOpnieuw_Click"/>
+            <Button x:Name="btnStandaard" Content="Standaard" HorizontalAlignment="Left" VerticalAlignment="Top" Width="71" Margin="10,201,0,0"/>
         </Grid>
 
         <Grid x:Name="grdAttributen" HorizontalAlignment="Left" Height="240" VerticalAlignment="Top" Width="322" Margin="270,0,0,0" Background="#FFD9FFBF">
             <Label x:Name="lblAttributen" Content="Attributen:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,11,0,0" Height="29" Width="66"/>
             <Label x:Name="lblBeschikbarePunten" Content="20 beschikbare punten!" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="111,11,0,0" Height="29" Width="190"/>
             <Label x:Name="lblLevenspunten" Content="Levenspunten:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,45,0,0" Height="29" Width="95"/>
-            <TextBox x:Name="txtLevensPunten" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="118,45,0,0" LostFocus="TxtLevensPunten_LostFocus"/>
+            <TextBox x:Name="txtLevensPunten" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="118,45,0,0" TextChanged="TxtLevensPunten_TextChanged"/>
             <Label x:Name="lblKracht" Content="Kracht:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,77,0,0" Height="29" Width="95"/>
-            <TextBox x:Name="txtKracht" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="118,77,0,0" LostFocus="TxtKracht_LostFocus"/>
+            <TextBox x:Name="txtKracht" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="118,77,0,0" TextChanged="TxtKracht_TextChanged"/>
             <Label x:Name="lblIntelligentie" Content="Intelligentie:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,106,0,0" Height="29" Width="95"/>
-            <TextBox x:Name="txtIntelligentie" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="118,106,0,0" LostFocus="TxtIntelligentie_LostFocus"/>
+            <TextBox x:Name="txtIntelligentie" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="118,106,0,0" TextChanged="TxtIntelligentie_TextChanged"/>
             <Label x:Name="lblSnelheid" Content="Snelheid:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,135,0,0" Height="29" Width="95"/>
-            <TextBox x:Name="txtSnelheid" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="118,135,0,0" LostFocus="TxtSnelheid_LostFocus"/>
+            <TextBox x:Name="txtSnelheid" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="118,135,0,0" TextChanged="TxtSnelheid_TextChanged"/>
             <TextBox x:Name="txtBonusLevensPunten" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="27" Margin="254,45,0,0" IsReadOnly="True"/>
             <TextBox x:Name="txtBonusKracht" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="27" Margin="254,77,0,0" IsReadOnly="True"/>
             <TextBox x:Name="txtBonusIntelligentie" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="27" Margin="254,106,0,0" IsReadOnly="True"/>
             <TextBox x:Name="txtBonusSnelheid" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" Width="27" Margin="254,135,0,0" IsReadOnly="True"/>
             <TextBox x:Name="txtFeedback" TextWrapping="Wrap" Text="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,204,0,0" Width="302" Height="26" IsReadOnly="True"/>
-            <Button x:Name="btnBevestig" Content="Bevestig" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="118,179,0,0" Click="BtnBevestig_Click"/>
-            <Button x:Name="btnRandom" Content="Random" HorizontalAlignment="Left" VerticalAlignment="Top" Width="58" Margin="254,179,0,0"/>
+            <Button x:Name="btnBevestigAttributen" Content="Bevestig" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Margin="118,179,0,0" Click="BtnBevestigAttributen_Click"/>
+            <Button x:Name="btnOpnieuwAttributen" Content="Opnieuw" HorizontalAlignment="Left" VerticalAlignment="Top" Width="103" Margin="10,179,0,0" Click="BtnOpnieuwAttributen_Click"/>
+            <Button x:Name="btnStandaardAttributen" Content="Standaard" HorizontalAlignment="Left" VerticalAlignment="Top" Width="69" Margin="243,179,0,0" Click="BtnOpnieuwAttributen_Click"/>
         </Grid>
         <Grid x:Name="grdAchtergrond" HorizontalAlignment="Left" Height="324" VerticalAlignment="Top" Width="372" Margin="220,245,0,0" Background="#FFD9FFBF">
             <Button x:Name="btnAanmaken" Content="Karakter Aanmaken" HorizontalAlignment="Left" Margin="10,286,0,0" VerticalAlignment="Top" Width="150" Height="28"/>
