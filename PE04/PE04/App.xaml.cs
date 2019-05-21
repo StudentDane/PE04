@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace PE04
+namespace KarakterCreatie
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PE04
+namespace Karakter.Lib.Entities
 {
-    enum Rassen
+    public enum Rassen
     {
         Mens,
         Elf,

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace PE04.Properties
+namespace KarakterCreatie.Properties
 {
 
 

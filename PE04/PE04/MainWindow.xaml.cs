@@ -14,8 +14,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using Utilities.Lib;
+using Karakter.Lib.Entities;
+using Karakter.Lib.Services;
 
-namespace PE04
+namespace KarakterCreatie
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -23,14 +25,16 @@ namespace PE04
     public partial class MainWindow : Window
     {
         int totaalTeBestedenPunten = 20;
-        /*int levenspunten, kracht, intelligentie, snelheid;*/
         int bonusLevenspunten, bonusKracht, bonusIntelligentie, bonusSnelheid;
         bool negeerEvent;
+        KarakterService beheerKarakters;
+        //public List<Karakter> = new List<Karakter>();
 
 
         public MainWindow()
         {
             InitializeComponent();
+            beheerKarakters = new KarakterService();
         }
 
 
@@ -39,12 +43,13 @@ namespace PE04
             cmbGeslacht.Items.Add("Man");
             cmbGeslacht.Items.Add("Vrouw");
 
-
             foreach (string ras in Enum.GetNames(typeof(Rassen)))
             {
                 cmbRas.Items.Add(ras);
             }
-            txtVoornaam.Focus();
+            grdBasisGegevens.Visibility = Visibility.Hidden;
+            grdAttributen.Visibility = Visibility.Hidden;
+            grdAchtergrond.Visibility = Visibility.Hidden;
             btnBevestig.IsEnabled = false;
         }
         #region Attributen
@@ -108,6 +113,7 @@ namespace PE04
         {
             WelkomsMenu.Visibility = Visibility.Hidden;
             grdBasisGegevens.Visibility = Visibility.Visible;
+            txtVoornaam.Focus();
         }
 
         private void BtnBestaand_Click(object sender, RoutedEventArgs e)
@@ -188,6 +194,27 @@ namespace PE04
         {
             cmbGeslacht.IsEnabled = false;
         }
+
+        private void BtnAanmaken_Click(object sender, RoutedEventArgs e)
+        {
+            string naam;
+            Rassen ras;
+            string geslacht;
+            int levenspunten;
+            int kracht;
+            int intelligentie;
+            int snelheid;
+
+            naam = txtVoornaam.Text + " " + txtAchterNaam.Text;
+            ras = (Rassen) cmbRas.SelectedValue;
+            geslacht = cmbGeslacht.SelectedValue.ToString();
+            levenspunten = int.Parse(txtLevensPunten.Text + txtBonusLevensPunten.Text);
+            kracht = int.Parse(txtKracht.Text + txtBonusKracht.Text);
+            intelligentie = int.Parse(txtIntelligentie.Text + txtBonusIntelligentie.Text);
+            snelheid = int.Parse(txtSnelheid.Text + txtBonusSnelheid.Text);
+
+            
+    }
 
         private void CmbRas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
