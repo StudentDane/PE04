@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Karakter Aanmaken" Height="605" Width="605" Loaded="Window_Loaded">
     <Grid>
-        <Grid x:Name="WelkomsMenu" HorizontalAlignment="Left" Height="554" Margin="10,10,0,0" VerticalAlignment="Top" Width="577" Visibility="Hidden">
+        <Grid x:Name="WelkomsMenu" HorizontalAlignment="Left" Height="554" Margin="10,10,0,0" VerticalAlignment="Top" Width="577">
             <Label x:Name="lblWelkom" Content="Welkom bij de beste Roleplaying-game in de wereld." HorizontalContentAlignment="Center" VerticalAlignment="Top" Margin="10,44,10,0" Width="557" FontSize="16" FontWeight="Bold"/>
             <Label x:Name="lblBestaandOfNieuw" Content="Wilt u een nieuw karakter maken of met een bestaand karakter verder spelen." HorizontalContentAlignment="Center" VerticalAlignment="Top" Margin="10,104,10,0" FontSize="16" Width="557"/>
             <Button x:Name="btnNieuw" Content="Nieuw" HorizontalAlignment="Left" VerticalAlignment="Top" Width="557" Margin="10,160,0,0" Height="56" FontSize="20" Click="BtnNieuw_Click"/>
@@ -63,15 +63,11 @@
             <TextBox x:Name="txtVoorbeeld" HorizontalAlignment="Left" Height="269" Foreground="Gray" TextWrapping="Wrap" Text="Ooit was er een kleine man genaamd Tom, hij had niet veel ervaring met grote zwaarden maar geloofde altijd dat hij een held ging worden..." VerticalAlignment="Top" Width="190" Margin="172,45,0,0"/>
             <TextBox x:Name="txtVerhaal" HorizontalAlignment="Left" Height="269" Background="Transparent" TextWrapping="Wrap" Text="" TextChanged="TxtVerhaal_TextChanged" VerticalAlignment="Top" Width="190" Margin="172,45,0,0"/>
             <Label x:Name="lblErvaring" Content="Ervaren avonturier?" HorizontalAlignment="Left" Margin="10,44,0,0" VerticalAlignment="Top" Width="118" RenderTransformOrigin="1.636,3.038"/>
-            <Label x:Name="lblMisdaad" Content="Crimineel?" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top" Width="118" RenderTransformOrigin="1.636,3.038"/>
-            <Label x:Name="lblVerliefd" Content="Verliefd?" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Width="118" RenderTransformOrigin="1.636,3.038"/>
-            <Label x:Name="lblStatus" Content="Hoge status?" HorizontalAlignment="Left" Margin="10,124,0,0" VerticalAlignment="Top" Width="118" RenderTransformOrigin="1.636,3.038"/>
-            <Label x:Name="lblFamilie" Content="Familie?" HorizontalAlignment="Left" Margin="10,151,0,0" VerticalAlignment="Top" Width="118" RenderTransformOrigin="1.636,3.038"/>
-            <RadioButton x:Name="rdbErvaring" HorizontalAlignment="Left" Margin="128,48,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,-0.643"/>
-            <RadioButton x:Name="rdbMisdaad" HorizontalAlignment="Left" Margin="128,75,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,-0.857"/>
+            <Label x:Name="lblHeld" Content="Held" HorizontalAlignment="Left" Margin="5,97,0,0" VerticalAlignment="Top" Width="118" RenderTransformOrigin="1.636,3.038"/>
+            <Label x:Name="lblMisdaad" Content="Misdadiger" HorizontalAlignment="Left" Margin="5,124,0,0" VerticalAlignment="Top" Width="118" RenderTransformOrigin="1.636,3.038"/>
+            <CheckBox x:Name="rdbErvaring" HorizontalAlignment="Left" Margin="128,48,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.467,-0.643"/>
             <RadioButton x:Name="rdbVerliefd" HorizontalAlignment="Left" Margin="128,101,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,-0.857"/>
             <RadioButton x:Name="rdbStatus" HorizontalAlignment="Left" Margin="128,128,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,-0.857"/>
-            <RadioButton x:Name="rdbFamilie" HorizontalAlignment="Left" Margin="128,155,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,-0.857"/>
         </Grid>
         <Image x:Name="imgAvatar" Source="Afbeeldingen\DwarfGirl.jpg" HorizontalAlignment="Left" Height="314" Margin="10,245,0,0" VerticalAlignment="Top" Width="200"/>
     </Grid>
