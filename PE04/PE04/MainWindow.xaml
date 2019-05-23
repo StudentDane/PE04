@@ -69,6 +69,6 @@
             <RadioButton x:Name="rdbVerliefd" HorizontalAlignment="Left" Margin="128,101,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,-0.857"/>
             <RadioButton x:Name="rdbStatus" HorizontalAlignment="Left" Margin="128,128,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,-0.857"/>
         </Grid>
-        <Image x:Name="imgAvatar" Source="Afbeeldingen\DwarfGirl.jpg" HorizontalAlignment="Left" Height="314" Margin="10,245,0,0" VerticalAlignment="Top" Width="200"/>
+        <Image x:Name="imgAvatar" Source="C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\HumanMale.jpg" HorizontalAlignment="Left" Height="314" Margin="10,245,0,0" VerticalAlignment="Top" Width="200"/>
     </Grid>
 </Window>

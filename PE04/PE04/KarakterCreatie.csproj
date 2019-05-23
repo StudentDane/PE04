@@ -98,13 +98,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\GemaakteOef\Utilities\Utilities.Lib\Utilities.Lib.csproj">
-      <Project>{4fcce7b2-e0e0-42ac-9e07-e4e6a7412ba3}</Project>
-      <Name>Utilities.Lib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Karakter.Lib\Karakter.Lib.csproj">
       <Project>{c2630644-bf68-4ce2-8fb2-e2f8787e6d45}</Project>
       <Name>Karakter.Lib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utilities.Lib\Utilities.Lib.csproj">
+      <Project>{4fcce7b2-e0e0-42ac-9e07-e4e6a7412ba3}</Project>
+      <Name>Utilities.Lib</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

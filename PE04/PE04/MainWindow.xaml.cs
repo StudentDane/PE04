@@ -192,9 +192,16 @@ namespace KarakterCreatie
         }
         private void BtnBevestig_Click(object sender, RoutedEventArgs e)
         {
-            grdBasisGegevens.IsEnabled = false;
-            grdBasisGegevens.Background = new SolidColorBrush(Colors.LightGreen);
-            grdAttributen.Visibility = Visibility.Visible;
+            if (txtVoornaam.Text != "")
+            {
+                grdBasisGegevens.IsEnabled = false;
+                grdBasisGegevens.Background = new SolidColorBrush(Colors.LightGreen);
+                grdAttributen.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MessageBox.Show("Vul een Voornaam in");
+            }
         }
 
         private void BtnOpnieuw_Click(object sender, RoutedEventArgs e)
