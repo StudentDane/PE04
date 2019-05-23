@@ -42,7 +42,7 @@ namespace KarakterCreatie
         {
             cmbGeslacht.Items.Add("Man");
             cmbGeslacht.Items.Add("Vrouw");
-
+            
             foreach (string ras in Enum.GetNames(typeof(Rassen)))
             {
                 cmbRas.Items.Add(ras);
@@ -107,6 +107,37 @@ namespace KarakterCreatie
             txtBonusSnelheid.Text = "+ " + bonusSnelheid;
         }
         #endregion
+
+        private void SelecteerAvatar()
+        {
+            bool geslacht;
+            Rassen gekozenRas;
+
+            geslacht = Convert.ToBoolean(cmbGeslacht.SelectedIndex);
+            gekozenRas = (Rassen) cmbRas.SelectedIndex;
+
+            switch (gekozenRas)
+            {
+                case Rassen.Mens: //Images met verkort path laden vanuit de Images map lukt niet, ik vrees dat de images niet zullen laden op andere pc's.
+                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\HumanGirl.png");
+                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\HumanMale.jpg");
+                    break;
+                case Rassen.Elf:
+                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\ElfGirl.jpg");
+                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\ElfMale.jpg");
+                    break;
+                case Rassen.Dwerg:
+                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\DwarfGirl.jpg");
+                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\DwarfMale.jpg");
+                    break;
+                case Rassen.Ork:
+                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\OrkGirl.jpg");
+                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\OrcMale.jpg");
+                    break;
+                default:
+                    break;
+            }
+        }
 
         #region Welkoms Menu
         private void BtnNieuw_Click(object sender, RoutedEventArgs e)
@@ -222,7 +253,7 @@ namespace KarakterCreatie
             {
                 Rassen gekozenRas = (Rassen)Enum.Parse(typeof(Rassen), cmbRas.SelectedItem.ToString());
                 BonusAttributen(gekozenRas);
-                //Als Ras en Geslacht beide gekozen zijn kan een afbeelding van dat ras en geslacht getoont worden bv mannelijke ork
+                SelecteerAvatar();
                 cmbRas.IsEnabled = false;
                 btnBevestig.IsEnabled = true;
                 btnBevestig.Focus();
