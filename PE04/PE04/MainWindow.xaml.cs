@@ -30,7 +30,7 @@ namespace KarakterCreatie
         KarakterService beheerKarakters;
         //public List<Karakter> = new List<Karakter>();
 
-
+        #region Startsituatie
         public MainWindow()
         {
             InitializeComponent();
@@ -40,18 +40,25 @@ namespace KarakterCreatie
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            StartSituatie();
+        }
+        private void StartSituatie()
+        {
             cmbGeslacht.Items.Add("Man");
             cmbGeslacht.Items.Add("Vrouw");
-            
+
             foreach (string ras in Enum.GetNames(typeof(Rassen)))
             {
                 cmbRas.Items.Add(ras);
             }
+            cmbRas.IsEnabled = false;
             grdBasisGegevens.Visibility = Visibility.Hidden;
             grdAttributen.Visibility = Visibility.Hidden;
             grdAchtergrond.Visibility = Visibility.Hidden;
+            imgAvatar.Visibility = Visibility.Hidden;
             btnBevestig.IsEnabled = false;
         }
+        #endregion
         #region Attributen
         void AttributenToevoegen(TextBox ingevuldAttribuut)
         {
@@ -107,7 +114,7 @@ namespace KarakterCreatie
             txtBonusSnelheid.Text = "+ " + bonusSnelheid;
         }
         #endregion
-
+        #region Images
         private void SelecteerAvatar()
         {
             bool geslacht;
@@ -118,27 +125,30 @@ namespace KarakterCreatie
 
             switch (gekozenRas)
             {
-                case Rassen.Mens: //Images met verkort path laden vanuit de Images map lukt niet, ik vrees dat de images niet zullen laden op andere pc's.
-                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\HumanGirl.png");
-                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\HumanMale.jpg");
+                case Rassen.Mens: //Images met verkort path laden vanuit de Images map lukt niet, dus de images zullen niet laden op andere pc's.
+                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\HumanGirl.png");
+                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\HumanMale.jpg");
                     break;
                 case Rassen.Elf:
-                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\ElfGirl.jpg");
-                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\ElfMale.jpg");
+                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\ElfGirl.jpg");
+                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\ElfMale.jpg");
+                    //imgAvatar.Source = new BitmapImage(new Uri(@"\Images\ElfMale.jpg", UriKind.Relative));
                     break;
                 case Rassen.Dwerg:
-                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\DwarfGirl.jpg");
-                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\DwarfMale.jpg");
+                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\DwarfGirl.jpg");
+                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\DwarfMale.jpg");
                     break;
                 case Rassen.Ork:
-                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\OrkGirl.jpg");
-                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\Karakter.Lib\Images\OrcMale.jpg");
+                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\OrkGirl.jpg");
+                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\OrcMale.jpg");
                     break;
                 default:
                     break;
             }
+            if (imgAvatar.Source == null) imgAvatar.IsEnabled = false;
+            else imgAvatar.Visibility = Visibility.Visible;
         }
-
+        #endregion
         #region Welkoms Menu
         private void BtnNieuw_Click(object sender, RoutedEventArgs e)
         {
@@ -153,22 +163,19 @@ namespace KarakterCreatie
         }
         #endregion
 
-        #region Karakter Aanmaken Events
+        #region Events
         private void TxtLevensPunten_TextChanged(object sender, RoutedEventArgs e)
         {
             AttributenToevoegen(txtLevensPunten);
         }
-
         private void TxtKracht_TextChanged(object sender, RoutedEventArgs e)
         {
             AttributenToevoegen(txtKracht);
         }
-
         private void TxtSnelheid_TextChanged(object sender, RoutedEventArgs e)
         {
             AttributenToevoegen(txtSnelheid);
         }
-
         private void TxtIntelligentie_TextChanged(object sender, RoutedEventArgs e)
         {
             AttributenToevoegen(txtIntelligentie);
@@ -190,6 +197,7 @@ namespace KarakterCreatie
                 btnOpnieuwAttributen.Focus();
             }
         }
+
         private void BtnBevestig_Click(object sender, RoutedEventArgs e)
         {
             if (txtVoornaam.Text != "")
@@ -231,6 +239,7 @@ namespace KarakterCreatie
         private void CmbGeslacht_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             cmbGeslacht.IsEnabled = false;
+            cmbRas.IsEnabled = true;
         }
 
         private void BtnAanmaken_Click(object sender, RoutedEventArgs e)
