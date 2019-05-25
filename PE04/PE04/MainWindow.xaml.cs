@@ -25,8 +25,7 @@ namespace KarakterCreatie
     public partial class MainWindow : Window
     {
         int totaalTeBestedenPunten = 20;
-        int bonusLevenspunten, bonusKracht, bonusIntelligentie, bonusSnelheid;
-        bool negeerEvent;
+        bool negeerEvent = true;
         KarakterService beheerKarakters;
         //public List<Karakter> = new List<Karakter>();
 
@@ -62,7 +61,7 @@ namespace KarakterCreatie
         #region Attributen
         void AttributenToevoegen(TextBox ingevuldAttribuut)
         {
-            if (!negeerEvent)
+            if (negeerEvent)
             {
                 int besteeddePunten;
                 besteeddePunten = Convert.ToInt16(ingevuldAttribuut.Text);
@@ -72,6 +71,10 @@ namespace KarakterCreatie
                     ingevuldAttribuut.IsEnabled = false;
                     lblBeschikbarePunten.Content = totaalTeBestedenPunten + " beschikbare punten!";
                     txtFeedback.Text = "Je hebt nog beschikbare punten om te besteden";
+                }
+                else if (totaalTeBestedenPunten == 0)
+                {
+                    txtFeedback.Text = "Je hebt al je punten besteed, druk op bevestigen";
                 }
                 else
                 {
@@ -83,7 +86,10 @@ namespace KarakterCreatie
 
         void BonusAttributen(Rassen gekozenRas)
         {
-            bonusLevenspunten = 3;
+            int bonusLevenspunten = 3;
+            int bonusKracht = 0;
+            int bonusIntelligentie = 0;
+            int bonusSnelheid = 0;
 
             switch (gekozenRas)
             {
@@ -117,36 +123,15 @@ namespace KarakterCreatie
         #region Images
         private void SelecteerAvatar()
         {
-            bool geslacht;
-            Rassen gekozenRas;
+            Image avatar = new Image();
+            string gekozenGeslacht, gekozenRas;
+            gekozenRas = cmbRas.SelectedValue.ToString();
+            gekozenGeslacht = cmbGeslacht.SelectedValue.ToString();
 
-            geslacht = Convert.ToBoolean(cmbGeslacht.SelectedIndex);
-            gekozenRas = (Rassen) cmbRas.SelectedIndex;
+            avatar.Source = new BitmapImage(new Uri(@"\Images\"+ gekozenRas + gekozenGeslacht + ".jpg", UriKind.Relative));
 
-            switch (gekozenRas)
-            {
-                case Rassen.Mens: //Images met verkort path laden vanuit de Images map lukt niet, dus de images zullen niet laden op andere pc's.
-                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\HumanGirl.png");
-                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\HumanMale.jpg");
-                    break;
-                case Rassen.Elf:
-                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\ElfGirl.jpg");
-                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\ElfMale.jpg");
-                    //imgAvatar.Source = new BitmapImage(new Uri(@"\Images\ElfMale.jpg", UriKind.Relative));
-                    break;
-                case Rassen.Dwerg:
-                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\DwarfGirl.jpg");
-                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\DwarfMale.jpg");
-                    break;
-                case Rassen.Ork:
-                    if (geslacht) imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\OrkGirl.jpg");
-                    else imgAvatar.Source = (ImageSource)new ImageSourceConverter().ConvertFrom(@"C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\OrcMale.jpg");
-                    break;
-                default:
-                    break;
-            }
-            if (imgAvatar.Source == null) imgAvatar.IsEnabled = false;
-            else imgAvatar.Visibility = Visibility.Visible;
+            imgAvatar.Source = avatar.Source;
+            imgAvatar.Visibility = Visibility.Visible;
         }
         #endregion
         #region Welkoms Menu
@@ -214,32 +199,29 @@ namespace KarakterCreatie
 
         private void BtnOpnieuw_Click(object sender, RoutedEventArgs e)
         {
-            negeerEvent = true;
+            negeerEvent = false;
             GuiFunctions.ClearPanel(grdClearable);
-            cmbRas.IsEnabled = true;
             cmbGeslacht.IsEnabled = true;
             btnBevestig.IsEnabled = false;
-            negeerEvent = false;
+            negeerEvent = true;
         }
 
         private void BtnOpnieuwAttributen_Click(object sender, RoutedEventArgs e)
         {
-            negeerEvent = true;
-            GuiFunctions.ClearTextBoxes(grdClearableAttributen);
+            negeerEvent = false;
+            GuiFunctions.ClearTextBoxes(grdClearableAttributen, true);
             totaalTeBestedenPunten = 20;
             lblBeschikbarePunten.Content = totaalTeBestedenPunten + " beschikbare punten!";
-            /*grdClearableAttributen.IsEnabled = true;*/
-            txtLevensPunten.IsEnabled = true;
-            txtKracht.IsEnabled = true;
-            txtIntelligentie.IsEnabled = true;
-            txtSnelheid.IsEnabled = true;
-            negeerEvent = false;
+            negeerEvent = true;
         }
 
         private void CmbGeslacht_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            cmbGeslacht.IsEnabled = false;
-            cmbRas.IsEnabled = true;
+            if (negeerEvent)
+            {
+                cmbGeslacht.IsEnabled = false;
+                cmbRas.IsEnabled = true;
+            }
         }
 
         private void BtnAanmaken_Click(object sender, RoutedEventArgs e)
@@ -265,7 +247,7 @@ namespace KarakterCreatie
 
         private void CmbRas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!negeerEvent)
+            if (negeerEvent)
             {
                 Rassen gekozenRas = (Rassen)Enum.Parse(typeof(Rassen), cmbRas.SelectedItem.ToString());
                 BonusAttributen(gekozenRas);

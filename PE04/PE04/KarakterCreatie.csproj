@@ -108,43 +108,38 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="OrkGirl.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Images\DwarfGirl.jpg">
+    <Resource Include="Images\DwergVrouw.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\DwarfMale.jpg">
+    <Resource Include="Images\DwergMan.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\ElfGirl.jpg">
+    <Resource Include="Images\ElfVrouw.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\ElfMale.jpg">
+    <Resource Include="Images\ElfMan.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\HumanGirl.png">
+    <Resource Include="Images\MensMan.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\HumanMale.jpg">
+    <Resource Include="Images\OrkMan.jpg" />
+    <Resource Include="Images\OrkVrouw.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\OrcMale.jpg" />
-    <Resource Include="Images\OrkGirl.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <Resource Include="Images\MensVrouw.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -50,6 +50,7 @@
     <Compile Include="ColorFunctions.cs" />
     <Compile Include="GuiFunctions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextFileFunctions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

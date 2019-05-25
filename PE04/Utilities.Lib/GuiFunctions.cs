@@ -26,7 +26,7 @@ namespace Utilities.Lib
 
         }*/
 
-        public static void ClearTextBoxes(Panel toClear)
+        public static void ClearTextBoxes(Panel toClear, bool enableBoxes)
         {
             foreach (object control in toClear.Children)
             {
@@ -35,19 +35,17 @@ namespace Utilities.Lib
                 {
                     TextBox castedControl = (TextBox)control;
                     castedControl.Text = string.Empty;
+                    if (enableBoxes) castedControl.IsEnabled = true;
                 }
                 else if (control is Panel)
                 {
                     Panel castedControl = (Panel)control;
-                    ClearTextBoxes(castedControl);
+                    ClearTextBoxes(castedControl, enableBoxes);
                 }
             }
 
         }
 
-
-        //Ik kon niet vinden hoe ik ClearPanel dynamischer kon maken d.m.v een parameter mee te geven om een bepaald Control te negeren. Zodat ik deze functie altijd kan gebruiken.
-        //Of bijvoorbeeld objecten met de IsReadOnly property te negeren.
         public static void ClearPanel(Panel toClear)
         {
             foreach (object control in toClear.Children)

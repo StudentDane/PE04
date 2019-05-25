@@ -34,7 +34,6 @@
             <Button x:Name="btnOpnieuw" Content="Opnieuw" HorizontalAlignment="Left" VerticalAlignment="Top" Width="71" Margin="10,12,0,0" Click="BtnOpnieuw_Click" Grid.Row="1"/>
             <Button x:Name="btnStandaard" Content="Standaard" HorizontalAlignment="Left" VerticalAlignment="Top" Width="71" Margin="10,37,0,0" Grid.Row="1"/>
         </Grid>
-
         <Grid x:Name="grdAttributen" HorizontalAlignment="Left" Height="240" VerticalAlignment="Top" Width="322" Margin="270,0,0,0">
             <Grid x:Name="grdClearableAttributen">
                 <TextBox x:Name="txtLevensPunten" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Height="29" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="118,45,0,0" TextChanged="TxtLevensPunten_TextChanged"/>
@@ -69,6 +68,6 @@
             <RadioButton x:Name="rdbVerliefd" HorizontalAlignment="Left" Margin="128,101,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,-0.857"/>
             <RadioButton x:Name="rdbStatus" HorizontalAlignment="Left" Margin="128,128,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.4,-0.857"/>
         </Grid>
-        <Image x:Name="imgAvatar" Source="C:\Users\dane_\OneDrive\Programmeren 1\PE04\PE04\PE04\Images\HumanMale.jpg" HorizontalAlignment="Left" Height="314" Margin="10,245,0,0" VerticalAlignment="Top" Width="200"/>
+        <Image x:Name="imgAvatar" HorizontalAlignment="Left" Height="314" Margin="10,245,0,0" VerticalAlignment="Top" Width="200"/>
     </Grid>
 </Window>
