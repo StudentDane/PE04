@@ -27,6 +27,7 @@ namespace KarakterCreatie
         int totaalTeBestedenPunten = 20;
         bool negeerEvent = true;
         KarakterService beheerKarakters;
+        Karakter.Lib.Entities.Karakter huidigKarakter;
         //public List<Karakter> = new List<Karakter>();
 
         #region Startsituatie
@@ -242,8 +243,23 @@ namespace KarakterCreatie
             intelligentie = int.Parse(txtIntelligentie.Text + txtBonusIntelligentie.Text);
             snelheid = int.Parse(txtSnelheid.Text + txtBonusSnelheid.Text);
 
-            
-    }
+
+            /*Karakter(string naam, Rassen ras, string geslacht, int levenspunten, int kracht, int intelligentie, int snelheid)
+            {
+                Naam = naam;
+                Ras = ras;
+                Geslacht = geslacht;
+                Levenspunten = levenspunten;
+                Kracht = kracht;
+                Intelligentie = intelligentie;
+                Snelheid = snelheid;
+                Level = 1;
+                Ervaring = 0;
+                Goud = 0;
+            }*/
+
+
+        }
 
         private void CmbRas_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

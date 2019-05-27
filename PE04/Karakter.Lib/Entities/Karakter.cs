@@ -49,7 +49,20 @@ namespace Karakter.Lib.Entities
             Level = level;
             Ervaring = ervaring;
             Goud = goud;
-
         }
+
+        /*bool IdBestaatReeds(int id)
+        {
+            bool bestaat = true;
+            reedsToegekendeIds.Contains(id);
+            return bestaat;
+        }
+
+        int GeefNieuwId()
+        {
+            int nieuwId = 0;
+            nieuwId = ++maxId;
+            return nieuwId;
+        }*/
     }
 }
