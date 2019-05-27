@@ -27,8 +27,6 @@ namespace KarakterCreatie
         int totaalTeBestedenPunten = 20;
         bool negeerEvent = true;
         KarakterService beheerKarakters;
-        Karakter.Lib.Entities.Karakter huidigKarakter;
-        //public List<Karakter> = new List<Karakter>();
 
         #region Startsituatie
         public MainWindow()
@@ -41,24 +39,25 @@ namespace KarakterCreatie
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             StartSituatie();
+            beheerKarakters.MaakSpelersAan();
         }
+
         private void StartSituatie()
         {
             cmbGeslacht.Items.Add("Man");
             cmbGeslacht.Items.Add("Vrouw");
+            cmbRas.ItemsSource = Enum.GetValues(typeof(Rassen));
 
-            foreach (string ras in Enum.GetNames(typeof(Rassen)))
-            {
-                cmbRas.Items.Add(ras);
-            }
-            cmbRas.IsEnabled = false;
             grdBasisGegevens.Visibility = Visibility.Hidden;
             grdAttributen.Visibility = Visibility.Hidden;
             grdAchtergrond.Visibility = Visibility.Hidden;
             imgAvatar.Visibility = Visibility.Hidden;
             btnBevestig.IsEnabled = false;
+            btnStart.IsEnabled = false;
+            cmbRas.IsEnabled = false;
         }
         #endregion
+
         #region Attributen
         void AttributenToevoegen(TextBox ingevuldAttribuut)
         {
@@ -69,7 +68,6 @@ namespace KarakterCreatie
                 if (totaalTeBestedenPunten - besteeddePunten >= 0)
                 {
                     totaalTeBestedenPunten -= besteeddePunten;
-                    ingevuldAttribuut.IsEnabled = false;
                     lblBeschikbarePunten.Content = totaalTeBestedenPunten + " beschikbare punten!";
                     txtFeedback.Text = "Je hebt nog beschikbare punten om te besteden";
                 }
@@ -82,12 +80,13 @@ namespace KarakterCreatie
                     txtFeedback.Text = "Je hebt niet genoeg punten om te besteden";
                     btnBevestigAttributen.IsEnabled = false;
                 }
+                ingevuldAttribuut.IsEnabled = false;
             }
         }
 
         void BonusAttributen(Rassen gekozenRas)
         {
-            int bonusLevenspunten = 3;
+            int bonusLevenspunten = 5;
             int bonusKracht = 0;
             int bonusIntelligentie = 0;
             int bonusSnelheid = 0;
@@ -115,27 +114,66 @@ namespace KarakterCreatie
             {
                 bonusSnelheid++;
             }
-            txtBonusLevensPunten.Text = "+ " + bonusLevenspunten;
-            txtBonusKracht.Text = "+ " + bonusKracht;
-            txtBonusIntelligentie.Text = "+ " + bonusIntelligentie;
-            txtBonusSnelheid.Text = "+ " + bonusSnelheid;
+            txtBonusLevensPunten.Text = bonusLevenspunten.ToString();
+            txtBonusKracht.Text = bonusKracht.ToString();
+            txtBonusIntelligentie.Text = bonusIntelligentie.ToString();
+            txtBonusSnelheid.Text = bonusSnelheid.ToString();
         }
         #endregion
-        #region Images
-        private void SelecteerAvatar()
+
+        #region Speler
+        void SpelerAanmaken()
         {
-            Image avatar = new Image();
-            string gekozenGeslacht, gekozenRas;
-            gekozenRas = cmbRas.SelectedValue.ToString();
-            gekozenGeslacht = cmbGeslacht.SelectedValue.ToString();
+            string naam = txtVoornaam.Text + " " + txtAchterNaam.Text;
+            Rassen ras = (Rassen)cmbRas.SelectedItem;
+            string geslacht = cmbGeslacht.SelectedValue.ToString();
+            int levenspunten = int.Parse(txtLevensPunten.Text + txtBonusLevensPunten.Text);
+            int kracht = int.Parse(txtKracht.Text + txtBonusKracht.Text);
+            int intelligentie = int.Parse(txtIntelligentie.Text + txtBonusIntelligentie.Text);
+            int snelheid = int.Parse(txtSnelheid.Text + txtBonusSnelheid.Text);
+            ImageSource avatar = SelecteerAvatar(geslacht, ras.ToString());
 
-            avatar.Source = new BitmapImage(new Uri(@"\Images\"+ gekozenRas + gekozenGeslacht + ".jpg", UriKind.Relative));
+            Speler speler = new Speler(naam, ras, geslacht, levenspunten, kracht, intelligentie, snelheid);
+            beheerKarakters.VoegSpelerToe(speler);
 
-            imgAvatar.Source = avatar.Source;
+            StartSpel(speler);
+        }
+
+        public void StartSpel(Speler speler)
+        {
+            /*Spel spel = new Spel(speler);
+            spel.Show();*/
+            Console.WriteLine("Pas dit aan wanneer je de references hebt toegevoegd kyle");
+        }
+
+        public ImageSource SelecteerAvatar(string geslacht, string ras)
+        {
+            ImageSource avatar = null;
+            ras = cmbRas.SelectedValue.ToString();
+            geslacht = cmbGeslacht.SelectedValue.ToString();
+            avatar = new BitmapImage(new Uri(@"\Images\" + ras + geslacht + ".jpg", UriKind.Relative));
+            return avatar;
+        }
+
+        void PasAvatarAan()
+        {
+            string ras, geslacht;
+
+            ras = cmbRas.SelectedValue.ToString();
+            geslacht = cmbGeslacht.SelectedValue.ToString();
+
+            imgAvatar.Source = SelecteerAvatar(ras, geslacht);
             imgAvatar.Visibility = Visibility.Visible;
+
+        }
+
+        void SpelerWegschrijven()
+        {
+            beheerKarakters.SlaTekstBestandOp();
         }
         #endregion
-        #region Welkoms Menu
+
+        #region Welkoms Menu Events
         private void BtnNieuw_Click(object sender, RoutedEventArgs e)
         {
             WelkomsMenu.Visibility = Visibility.Hidden;
@@ -145,26 +183,45 @@ namespace KarakterCreatie
 
         private void BtnBestaand_Click(object sender, RoutedEventArgs e)
         {
+            foreach (Speler speler in beheerKarakters.Spelers)
+            {
+                lstKiesKarakter.Items.Add(speler);
+            }
             lstKiesKarakter.Visibility = Visibility.Visible;
+
+        }
+
+        private void LstKiesKarakter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            btnStart.IsEnabled = true;
+        }
+
+        private void BtnStart_Click(object sender, RoutedEventArgs e)
+        {
+            StartSpel((Speler) lstKiesKarakter.SelectedItem);
         }
         #endregion
 
-        #region Events
+        #region Karakter Creatie Events
         private void TxtLevensPunten_TextChanged(object sender, RoutedEventArgs e)
         {
             AttributenToevoegen(txtLevensPunten);
+            txtKracht.Focus();
         }
         private void TxtKracht_TextChanged(object sender, RoutedEventArgs e)
         {
             AttributenToevoegen(txtKracht);
-        }
-        private void TxtSnelheid_TextChanged(object sender, RoutedEventArgs e)
-        {
-            AttributenToevoegen(txtSnelheid);
+            txtIntelligentie.Focus();
         }
         private void TxtIntelligentie_TextChanged(object sender, RoutedEventArgs e)
         {
             AttributenToevoegen(txtIntelligentie);
+            txtSnelheid.Focus();
+        }
+        private void TxtSnelheid_TextChanged(object sender, RoutedEventArgs e)
+        {
+            AttributenToevoegen(txtSnelheid);
+            btnBevestigAttributen.Focus();
         }
 
         private void BtnBevestigAttributen_Click(object sender, RoutedEventArgs e)
@@ -191,6 +248,7 @@ namespace KarakterCreatie
                 grdBasisGegevens.IsEnabled = false;
                 grdBasisGegevens.Background = new SolidColorBrush(Colors.LightGreen);
                 grdAttributen.Visibility = Visibility.Visible;
+                txtLevensPunten.Focus();
             }
             else
             {
@@ -204,6 +262,7 @@ namespace KarakterCreatie
             GuiFunctions.ClearPanel(grdClearable);
             cmbGeslacht.IsEnabled = true;
             btnBevestig.IsEnabled = false;
+            imgAvatar.Source = null;
             negeerEvent = true;
         }
 
@@ -227,38 +286,8 @@ namespace KarakterCreatie
 
         private void BtnAanmaken_Click(object sender, RoutedEventArgs e)
         {
-            string naam;
-            Rassen ras;
-            string geslacht;
-            int levenspunten;
-            int kracht;
-            int intelligentie;
-            int snelheid;
-
-            naam = txtVoornaam.Text + " " + txtAchterNaam.Text;
-            ras = (Rassen) cmbRas.SelectedValue;
-            geslacht = cmbGeslacht.SelectedValue.ToString();
-            levenspunten = int.Parse(txtLevensPunten.Text + txtBonusLevensPunten.Text);
-            kracht = int.Parse(txtKracht.Text + txtBonusKracht.Text);
-            intelligentie = int.Parse(txtIntelligentie.Text + txtBonusIntelligentie.Text);
-            snelheid = int.Parse(txtSnelheid.Text + txtBonusSnelheid.Text);
-
-
-            /*Karakter(string naam, Rassen ras, string geslacht, int levenspunten, int kracht, int intelligentie, int snelheid)
-            {
-                Naam = naam;
-                Ras = ras;
-                Geslacht = geslacht;
-                Levenspunten = levenspunten;
-                Kracht = kracht;
-                Intelligentie = intelligentie;
-                Snelheid = snelheid;
-                Level = 1;
-                Ervaring = 0;
-                Goud = 0;
-            }*/
-
-
+            SpelerAanmaken();
+            SpelerWegschrijven();
         }
 
         private void CmbRas_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -267,7 +296,8 @@ namespace KarakterCreatie
             {
                 Rassen gekozenRas = (Rassen)Enum.Parse(typeof(Rassen), cmbRas.SelectedItem.ToString());
                 BonusAttributen(gekozenRas);
-                SelecteerAvatar();
+
+                PasAvatarAan();
                 cmbRas.IsEnabled = false;
                 btnBevestig.IsEnabled = true;
                 btnBevestig.Focus();

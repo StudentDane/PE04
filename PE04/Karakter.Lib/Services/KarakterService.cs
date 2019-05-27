@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using Karakter.Lib.Entities;
 using Utilities.Lib;
 
@@ -10,49 +11,59 @@ namespace Karakter.Lib.Services
 {
     public class KarakterService
     {
-        private TextFileFunctions textFileFunctions;
+        public TextFileFunctions textFileFunctions = new TextFileFunctions();
         string tekstBestandLocatie = TextFileFunctions.rootPad + "Karakters.csv";
-        /*public List<Karakter> Karakters { get; set; }
+        public List<Speler> Spelers { get; set; }
 
         public KarakterService()
         {
-            Karakters = new List<Karakter>();
-            MaakKaraktersAan();
+            Spelers = new List<Speler>();
         }
-        private void MaakKaraktersAan()
-        {
-            //VoegKarakterToe();
-        }
-            void VoegKarakterToe(Karakter karakter)
-        {
-            Karakters.Add(karakter);
-        }*/
 
-        /*public void SlaTekstBestandOp()
+        public void MaakSpelersAan()
         {
-            List<string[]> opTeSlaan = ZetKaraktersOm();
+
+            Speler speler = new Speler("Danor Nightblade", Rassen.Elf, "Man", 10, 6, 5, 6);
+            VoegSpelerToe(speler);
+            Speler speler1 = new Speler("Kyllion Crymaster", Rassen.Ork, "Man", 10, 7, 5, 5);
+            VoegSpelerToe(speler1);
+        }
+
+        public void VoegSpelerToe(Speler speler)
+        {
+            Spelers.Add(speler);
+        }
+
+        public void VoegSpelerToe(string naam, Rassen ras, string geslacht, int levenspunten, int kracht, int intelligentie, int snelheid, ImageSource avatar)
+        {
+            Speler speler = new Speler(naam, ras, geslacht, levenspunten, kracht, intelligentie, snelheid);
+            Spelers.Add(speler);
+        }
+        #region Serialisatie
+        public void SlaTekstBestandOp()
+        {
+            List<string[]> opTeSlaan = ZetSpelersOm();
             textFileFunctions.SchrijfListVanArrays(opTeSlaan, tekstBestandLocatie, ";");
-        }*/
+        }
 
-        /*List<string[]> ZetKaraktersOm()
+        List<string[]> ZetSpelersOm()
         {
-            List<string[]> personeelsLedenArr = new List<string[]>();
-            foreach (Karakter karakter in KarakterService)
+            List<string[]> SpelerInfo = new List<string[]>();
+            foreach (Speler speler in Spelers)
             {
-                string[] personeelsLidArr = new string[5];
-                personeelsLidArr[ID] = personeelsLid.Id.ToString();
-                personeelsLidArr[FAMILIE_NAAM] = personeelsLid.FamilieNaam;
-                personeelsLidArr[VOOR_NAAM] = personeelsLid.Voornaam;
-                personeelsLidArr[GESLACHT] = ((int)personeelsLid.Geslacht).ToString();
-                personeelsLidArr[FUNCTIE_KLASSE] = ((int)personeelsLid.FunctieKlasse).ToString();
-                personeelsLedenArr.Add(personeelsLidArr);
-            }
-            return personeelsLedenArr;
-        }*/
+                string[] spelerArr = new string[7];
+                spelerArr[0] = speler.Naam;
+                spelerArr[1] = speler.Ras.ToString();
+                spelerArr[2] = speler.Geslacht;
+                spelerArr[3] = speler.Levenspunten.ToString();
+                spelerArr[4] = speler.Kracht.ToString();
+                spelerArr[5] = speler.Intelligentie.ToString();
+                spelerArr[6] = speler.Snelheid.ToString();
 
-        /*void VoegToe(Karakter toeTeVoegen)
-        {
-            KarakterService.Add(toeTeVoegen);
-        }*/
+                SpelerInfo.Add(spelerArr);
+            }
+            return SpelerInfo;
+        }
+        #endregion
     }
 }
