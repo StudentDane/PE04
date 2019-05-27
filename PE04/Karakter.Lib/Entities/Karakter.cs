@@ -22,14 +22,6 @@ namespace Karakter.Lib.Entities
         public int Level { get; set; }
         public int Ervaring { get; set; }
         public decimal Goud { get; set; }
-        //public Locatie huidigeLocatie { get; set; }
-
-        //public List<Voorwerp> uitrusting { get; set; }
-
-        public Speler()
-        {
-            
-        }
 
         public Speler(string naam, Rassen ras, string geslacht, int levenspunten, int kracht, int intelligentie, int snelheid)
         {
@@ -41,9 +33,6 @@ namespace Karakter.Lib.Entities
             Intelligentie = intelligentie;
             Snelheid = snelheid;
             Avatar = new BitmapImage(new Uri(@"\Images\" + ras + geslacht + ".jpg", UriKind.Relative));
-
-            /*Level = 1;
-            Ervaring = 0;*/
             Goud = 0;
         }
 
@@ -65,19 +54,5 @@ namespace Karakter.Lib.Entities
             info = $"{Naam}\t{Ras}\t{Geslacht}\t{Levenspunten}\t{Kracht}\t{Intelligentie}\t{Snelheid}\"";
             return info;
         }
-
-        /*bool IdBestaatReeds(int id)
-        {
-            bool bestaat = true;
-            reedsToegekendeIds.Contains(id);
-            return bestaat;
-        }
-
-        int GeefNieuwId()
-        {
-            int nieuwId = 0;
-            nieuwId = ++maxId;
-            return nieuwId;
-        }*/
     }
 }

@@ -22,7 +22,6 @@ namespace Karakter.Lib.Services
 
         public void MaakSpelersAan()
         {
-
             Speler speler = new Speler("Danor Nightblade", Rassen.Elf, "Man", 10, 6, 5, 6);
             VoegSpelerToe(speler);
             Speler speler1 = new Speler("Kyllion Crymaster", Rassen.Ork, "Man", 10, 7, 5, 5);
